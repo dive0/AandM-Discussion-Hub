@@ -5,7 +5,8 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
-  updateProfile,
+  updateEmail,
+  updatePassword,
 } from "firebase/auth";
 
 const AuthContext = React.createContext();
@@ -19,9 +20,8 @@ const AuthProvider = (props) => {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
-  // Work on the displayname part. Profile not updated
   const signup = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email, password)
   };
 
   const login = (email, password) => {
@@ -36,6 +36,14 @@ const AuthProvider = (props) => {
     return sendPasswordResetEmail(auth, email);
   };
 
+  const setEmail = (email) => {
+    return updateEmail(currentUser, email);
+  };
+
+  const setPassword = (password) => {
+    return updatePassword(currentUser, password);
+  };
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
@@ -45,7 +53,15 @@ const AuthProvider = (props) => {
     return unsubscribe;
   }, []);
 
-  const value = { currentUser, signup, login, logout, resetPassword };
+  const value = {
+    currentUser,
+    signup,
+    login,
+    logout,
+    resetPassword,
+    setEmail,
+    setPassword,
+  };
 
   return (
     <AuthContext.Provider value={value}>

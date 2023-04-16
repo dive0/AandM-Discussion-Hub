@@ -19,10 +19,12 @@ const Navbar = () => {
 
   return (
     <div>
+      {error && alert(error)}
       <Link to="/">AnimeHub</Link>
       <Link to="/manga-hub">MangaHub</Link>
       
       Email: {currentUser.email}
+      <Link to="/update-profile">Update Profile</Link>
       <button onClick={handleLogout}>Log Out</button>
       <Outlet />
     </div>

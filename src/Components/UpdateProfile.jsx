@@ -2,41 +2,56 @@ import { useRef, useState } from "react";
 import { useAuth } from "../Contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
-const Signup = () => {
+const UpdateProfile = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const { signup } = useAuth();
+  const displayNameRef = useRef();
+  const { currentUser, setEmail, setPassword } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Password do not match");
     }
 
-    try {
-      setError("");
-      setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
-      navigate("/");
-    } catch {
-      setError("Failed to create an account");
+    const promises = []
+    setLoading(true);
+    setError("");
+    if (emailRef.current.value !== currentUser.email) {
+      promises.push(setEmail(emailRef.current.value))
     }
-    setLoading(false);
+    if (passwordRef.current.value) {
+      promises.push(setPassword(passwordRef.current.value))
+    }
+
+    Promise.all(promises).then(() => {
+      navigate("/")
+    }).catch(() => {
+      setError("Failed to update account")
+    }).finally(() => {
+      setLoading(false)
+    })
   };
 
   return (
     <>
       <div>
-        <h2>Sign Up</h2>
+        <h2>Update Profile</h2>
         {error && alert(error)}
         <form onSubmit={handleSubmit}>
           <label htmlFor="email">Email</label>
-          <input type="email" id="email" name="email" ref={emailRef} required />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            ref={emailRef}
+            defaultValue={currentUser.email}
+            required
+          />
           <br />
           <label htmlFor="password">Password</label>
           <input
@@ -44,7 +59,7 @@ const Signup = () => {
             id="password"
             name="password"
             ref={passwordRef}
-            required
+            placeholder="Leave blank to keep same"
           />
           <br />
           <label htmlFor="passwordConfirm">Password Confirmation</label>
@@ -53,19 +68,19 @@ const Signup = () => {
             id="passwordConfirm"
             name="passwordConfirm"
             ref={passwordConfirmRef}
-            required
+            placeholder="Leave blank to keep same"
           />
           <br />
           <button disabled={loading} type="submit">
-            Sign Up
+            Update
           </button>
         </form>
       </div>
       <div>
-        Already have an account? <Link to="/login">Log In</Link>
+        <Link to="/">Cancel</Link>
       </div>
     </>
   );
 };
 
-export default Signup;
+export default UpdateProfile;

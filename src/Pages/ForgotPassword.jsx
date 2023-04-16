@@ -29,6 +29,7 @@ const ForgotPassword = () => {
       <div>
         <h2>Reset Password</h2>
         {error && alert(error)}
+        {message && alert(message)}
         <form onSubmit={handleSubmit}>
           <label htmlFor="email">Email</label>
           <input type="email" id="email" name="email" ref={emailRef} required />

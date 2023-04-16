@@ -11,6 +11,7 @@ import Signup from "./Pages/Signup";
 import ForgotPassword from "./Pages/ForgotPassword";
 import AnimeHub from "./Pages/AnimeHub";
 import MangaHub from "./Pages/MangaHub";
+import UpdateProfile from "./Components/UpdateProfile";
 
 function App() {
   const animePostsRef = collection(firestore, "AnimePosts");
@@ -30,8 +31,9 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route element={<Navbar />}>
               <Route exact path="/" element={<AnimeHub />} />
-              <Route exact path="/manga-hub" element={<MangaHub />} />
+              <Route path="/manga-hub" element={<MangaHub />} />
             </Route>
+            <Route path="update-profile" element={<UpdateProfile />} />
           </Route>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
