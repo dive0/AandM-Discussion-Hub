@@ -1,6 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../firebase_setup/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
+} from "firebase/auth";
 
 const AuthContext = React.createContext();
 
@@ -13,8 +19,21 @@ const AuthProvider = (props) => {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
+  // Work on the displayname part. Profile not updated
   const signup = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  const login = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const logout = () => {
+    return signOut(auth);
+  };
+
+  const resetPassword = (email) => {
+    return sendPasswordResetEmail(auth, email);
   };
 
   useEffect(() => {
@@ -26,7 +45,7 @@ const AuthProvider = (props) => {
     return unsubscribe;
   }, []);
 
-  const value = { currentUser, signup };
+  const value = { currentUser, signup, login, logout, resetPassword };
 
   return (
     <AuthContext.Provider value={value}>
