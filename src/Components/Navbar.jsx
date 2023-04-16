@@ -18,7 +18,7 @@ const Navbar = () => {
   }
 
   return (
-    <div>
+    <nav>
       {error && alert(error)}
       <Link to="/">AnimeHub</Link>
       <Link to="/manga-hub">MangaHub</Link>
@@ -27,7 +27,7 @@ const Navbar = () => {
       <Link to="/update-profile">Update Profile</Link>
       <button onClick={handleLogout}>Log Out</button>
       <Outlet />
-    </div>
+    </nav>
   )
 }
 

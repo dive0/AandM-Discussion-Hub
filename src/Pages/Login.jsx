@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useAuth } from "../Contexts/AuthContext";
-import { Link, useNavigate} from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const emailRef = useRef();
@@ -8,7 +8,7 @@ const Login = () => {
   const { login } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +17,7 @@ const Login = () => {
       setError("");
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      navigate("/")
+      navigate("/");
     } catch {
       setError("Failed to log in");
     }
@@ -25,14 +25,13 @@ const Login = () => {
   };
 
   return (
-    <>
-      <div>
-        <h2>Log In</h2>
+    <div className="formsPage">
+      <div className="formsContainer">
+        <h2>Login</h2>
         {error && alert(error)}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="formsContainerContent">
           <label htmlFor="email">Email</label>
           <input type="email" id="email" name="email" ref={emailRef} required />
-          <br />
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -41,13 +40,21 @@ const Login = () => {
             ref={passwordRef}
             required
           />
-          <br />
-          <button disabled={loading} type="submit">Log In</button>
+          <button disabled={loading} type="submit">
+            Login
+          </button>
         </form>
-        <div><Link to="/forgot-password">Forgot Password?</Link></div>
+        <div className="loginResetLink">
+          <Link to="/forgot-password">Forgot Password?</Link>
+        </div>
       </div>
-      <div>Need an account? <Link to="/signup">Sign Up</Link></div>
-    </>
+      <div className="authLinkContent">
+        Need an account?{" "}
+        <Link to="/signup" className="authLink">
+          Sign Up
+        </Link>
+      </div>
+    </div>
   );
 };
 

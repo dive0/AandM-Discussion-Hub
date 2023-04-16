@@ -38,11 +38,11 @@ const UpdateProfile = () => {
   };
 
   return (
-    <>
-      <div>
+    <div className="formsPage">
+      <div className="formsContainer">
         <h2>Update Profile</h2>
         {error && alert(error)}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="formsContainerContent">
           <label htmlFor="email">Email</label>
           <input
             type="email"
@@ -52,34 +52,31 @@ const UpdateProfile = () => {
             defaultValue={currentUser.email}
             required
           />
-          <br />
           <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
             name="password"
             ref={passwordRef}
-            placeholder="Leave blank to keep same"
+            placeholder="Leave blank for no change"
           />
-          <br />
           <label htmlFor="passwordConfirm">Password Confirmation</label>
           <input
             type="password"
             id="passwordConfirm"
             name="passwordConfirm"
             ref={passwordConfirmRef}
-            placeholder="Leave blank to keep same"
+            placeholder="Leave blank for no change"
           />
-          <br />
           <button disabled={loading} type="submit">
             Update
           </button>
         </form>
       </div>
-      <div>
-        <Link to="/">Cancel</Link>
+      <div className="authLinkContent">
+        <Link to="/" className="authLink">Cancel</Link>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,23 +1,23 @@
 import { useRef, useState } from "react";
 import { useAuth } from "../Contexts/AuthContext";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {
   const emailRef = useRef();
   const { resetPassword } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      setMessage("")
+      setMessage("");
       setError("");
       setLoading(true);
-      await resetPassword(emailRef.current.value)
-      setMessage("Check inbox for next steps")
+      await resetPassword(emailRef.current.value);
+      setMessage("Check inbox for next steps");
     } catch {
       setError("Failed to reset password");
     }
@@ -25,22 +25,29 @@ const ForgotPassword = () => {
   };
 
   return (
-    <>
-      <div>
+    <div className="formsPage">
+      <div className="formsContainer">
         <h2>Reset Password</h2>
         {error && alert(error)}
         {message && alert(message)}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="formsContainerContent">
           <label htmlFor="email">Email</label>
           <input type="email" id="email" name="email" ref={emailRef} required />
-          <br />
-          
-          <button disabled={loading} type="submit">Reset Password</button>
+          <button disabled={loading} type="submit">
+            Reset Password
+          </button>
         </form>
-        <div><Link to="/login">Log In</Link></div>
+        <div className="loginResetLink">
+          <Link to="/login">Log In</Link>
+        </div>
       </div>
-      <div>Need an account? <Link to="/signup">Sign Up</Link></div>
-    </>
+      <div className="authLinkContent">
+        Need an account?{" "}
+        <Link to="/signup" className="authLink">
+          Sign Up
+        </Link>
+      </div>
+    </div>
   );
 };
 

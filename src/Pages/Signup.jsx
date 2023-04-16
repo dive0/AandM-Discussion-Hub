@@ -30,14 +30,13 @@ const Signup = () => {
   };
 
   return (
-    <>
-      <div>
+    <div className="formsPage">
+      <div className="formsContainer">
         <h2>Sign Up</h2>
         {error && alert(error)}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="formsContainerContent">
           <label htmlFor="email">Email</label>
           <input type="email" id="email" name="email" ref={emailRef} required />
-          <br />
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -46,7 +45,6 @@ const Signup = () => {
             ref={passwordRef}
             required
           />
-          <br />
           <label htmlFor="passwordConfirm">Password Confirmation</label>
           <input
             type="password"
@@ -55,16 +53,18 @@ const Signup = () => {
             ref={passwordConfirmRef}
             required
           />
-          <br />
           <button disabled={loading} type="submit">
             Sign Up
           </button>
         </form>
       </div>
-      <div>
-        Already have an account? <Link to="/login">Log In</Link>
+      <div className="authLinkContent">
+        Already have an account?{" "}
+        <Link to="/login" className="authLink">
+          Log In
+        </Link>
       </div>
-    </>
+    </div>
   );
 };
 

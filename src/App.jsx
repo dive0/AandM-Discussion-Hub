@@ -11,7 +11,7 @@ import Signup from "./Pages/Signup";
 import ForgotPassword from "./Pages/ForgotPassword";
 import AnimeHub from "./Pages/AnimeHub";
 import MangaHub from "./Pages/MangaHub";
-import UpdateProfile from "./Components/UpdateProfile";
+import UpdateProfile from "./Pages/UpdateProfile";
 
 function App() {
   const animePostsRef = collection(firestore, "AnimePosts");
@@ -25,7 +25,7 @@ function App() {
   });
 
   return (
-    <div>
+    <div className="bg-sky-900 w-screen h-screen">
       <AuthProvider>
         <Routes>
           <Route element={<PrivateRoute />}>
