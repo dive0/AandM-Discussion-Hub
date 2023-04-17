@@ -27,7 +27,7 @@ const ForgotPassword = () => {
   return (
     <div className="formsPage">
       <div className="formsContainer">
-        <h2>Reset Password</h2>
+        <h1>Reset Password</h1>
         {error && alert(error)}
         {message && alert(message)}
         <form onSubmit={handleSubmit} className="formsContainerContent">

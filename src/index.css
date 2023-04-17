@@ -11,7 +11,7 @@
     @apply text-center bg-cyan-700 rounded-2xl px-6 py-4;
   }
 
-  .formsContainer h2 {
+  .formsContainer h1 {
     @apply text-6xl my-5 ;
   }
 

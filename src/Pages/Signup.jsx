@@ -32,7 +32,7 @@ const Signup = () => {
   return (
     <div className="formsPage">
       <div className="formsContainer">
-        <h2>Sign Up</h2>
+        <h1>Sign Up</h1>
         {error && alert(error)}
         <form onSubmit={handleSubmit} className="formsContainerContent">
           <label htmlFor="email">Email</label>

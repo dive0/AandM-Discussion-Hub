@@ -40,7 +40,7 @@ const UpdateProfile = () => {
   return (
     <div className="formsPage">
       <div className="formsContainer">
-        <h2>Update Profile</h2>
+        <h1>Update Profile</h1>
         {error && alert(error)}
         <form onSubmit={handleSubmit} className="formsContainerContent">
           <label htmlFor="email">Email</label>
