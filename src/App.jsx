@@ -1,5 +1,3 @@
-import { firestore } from "./firebase_setup/firebase";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { AuthProvider } from "./Contexts/AuthContext";
 import { Routes, Route } from "react-router-dom";
 
@@ -12,26 +10,20 @@ import ForgotPassword from "./Pages/ForgotPassword";
 import AnimeHub from "./Pages/AnimeHub";
 import MangaHub from "./Pages/MangaHub";
 import UpdateProfile from "./Pages/UpdateProfile";
+import CreatePost from "./Pages/CreatePost";
 
 function App() {
-  const animePostsRef = collection(firestore, "AnimePosts");
-  const animePostQuery = query(animePostsRef, orderBy("createdAt", "desc"));
-  onSnapshot(animePostsRef, (snapshot) => {
-    let posts = [];
-    snapshot.docs.forEach((doc) => {
-      posts.push({ ...doc.data(), id: doc.id });
-    });
-    console.log(posts);
-  });
+
 
   return (
-    <div className="bg-sky-900 w-screen h-screen">
+    <div className="bg-slate-900 w-screen h-screen">
       <AuthProvider>
         <Routes>
           <Route element={<PrivateRoute />}>
             <Route element={<Navbar />}>
               <Route exact path="/" element={<AnimeHub />} />
               <Route path="/manga-hub" element={<MangaHub />} />
+              <Route path="/create-post" element={<CreatePost />}></Route>
             </Route>
             <Route path="update-profile" element={<UpdateProfile />} />
           </Route>

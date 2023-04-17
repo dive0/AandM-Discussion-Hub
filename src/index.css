@@ -12,11 +12,11 @@
   }
 
   .formsContainer h1 {
-    @apply text-6xl my-5 ;
+    @apply text-6xl my-5;
   }
 
   .formsContainerContent {
-    @apply text-2xl space-y-3 flex flex-col;
+    @apply text-2xl space-y-3 flex flex-col font-semibold;
   }
 
   .formsContainerContent button {
@@ -24,7 +24,7 @@
   }
 
   .loginResetLink {
-    @apply my-3 text-xl hover:underline hover:text-white w-fit m-auto
+    @apply my-3 text-xl hover:underline hover:text-white w-fit m-auto;
   }
 
   .authLinkContent {
@@ -33,5 +33,9 @@
 
   .authLink {
     @apply hover:underline hover:text-blue-500;
+  }
+
+  .hubPage h1 {
+    @apply text-center text-6xl font-semibold text-white my-4;
   }
 }

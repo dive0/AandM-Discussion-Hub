@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
+import { firestore } from "./../firebase_setup/firebase";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 const AnimeHub = () => {
-  const [animeTrendingData, setAnimeTrendingData] = useState([])
+  const [animeTrendingData, setAnimeTrendingData] = useState([]);
+  const [animeDiscussionPost, setAnimeDiscussionPost] = useState([]);
 
-  let query = `
+  let queries = `
   query ($page: Int, $perPage: Int, $search: String) {
     Page(page: $page, perPage: $perPage) {
       pageInfo {
@@ -37,18 +41,31 @@ const AnimeHub = () => {
         Accept: "application/json",
       },
       body: JSON.stringify({
-        query: query,
+        query: queries,
         variables: variables,
       }),
     })
       .then((res) => res.json())
       .then((data) => setAnimeTrendingData(data.data.Page.media));
-  }, [])
+  }, []);
 
-  return (<>
-    <h1></h1>
-    {animeTrendingData?.forEach((anime) => console.log(anime))}
-  </>);
+  const animePostsRef = collection(firestore, "AnimePosts");
+  const animePostQuery = query(animePostsRef, orderBy("createdAt", "desc"));
+  useEffect(
+    () =>
+      onSnapshot(animePostsRef, (snapshot) =>
+        setAnimeDiscussionPost(snapshot.docs.map((doc) => doc.data()))
+      ),
+    []
+  );
+
+  return (
+    <div className="hubPage">
+      <h1>Anime Hub</h1>
+      <Link to="/create-post"><input type="text" /></Link>
+      {/* {animeTrendingData?.forEach((anime) => console.log(anime))} */}
+    </div>
+  );
 };
 
 export default AnimeHub;
