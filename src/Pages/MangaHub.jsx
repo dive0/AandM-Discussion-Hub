@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const MangaHub = () => {
   const [mangaTrendingData, setMangaTrendingData] = useState([]);
@@ -48,6 +49,9 @@ const MangaHub = () => {
   return (
     <div className="hubPage">
       <h1>Manga Hub</h1>
+      <Link to="/create-post" state={{ previousPage: "MangaHub" }}>
+        <input type="text" />
+      </Link>
       {/* {mangaTrendingData?.forEach((manga) => console.log(manga))} */}
     </div>
   );

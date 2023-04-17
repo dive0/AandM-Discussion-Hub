@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { firestore } from "./../firebase_setup/firebase";
+import { firestore } from "../firebase_setup/firebase";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AnimeHub = () => {
   const [animeTrendingData, setAnimeTrendingData] = useState([]);
   const [animeDiscussionPost, setAnimeDiscussionPost] = useState([]);
+  const navigate = useNavigate();
 
   let queries = `
   query ($page: Int, $perPage: Int, $search: String) {
@@ -59,10 +60,14 @@ const AnimeHub = () => {
     []
   );
 
+  console.log(animeDiscussionPost)
+
   return (
     <div className="hubPage">
       <h1>Anime Hub</h1>
-      <Link to="/create-post"><input type="text" /></Link>
+      <Link to="/create-post" state={{ previousPage: "AnimeHub" }}>
+        <input type="text" />
+      </Link>
       {/* {animeTrendingData?.forEach((anime) => console.log(anime))} */}
     </div>
   );

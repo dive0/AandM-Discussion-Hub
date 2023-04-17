@@ -1,24 +1,50 @@
 import { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { addDoc, collection } from "firebase/firestore";
+import { firestore } from "../firebase_setup/firebase";
+import { useAuth } from "../Contexts/AuthContext";
 
-const CreatePost = () => {
+const CreatePost = (props) => {
   const titleRef = useRef();
   const postTextContentRef = useRef();
   const imageURLRef = useRef();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { currentUser } = useAuth();
 
-  const handleSubmit = (e) => {
+  const addDocument = async (collectionRef, type) => {
+    await addDoc(collectionRef, {
+      postOwner: currentUser.uid,
+      title: titleRef.current.value,
+      postText: postTextContentRef.current.value,
+      imageURL: imageURLRef.current.value,
+    })
+      .then(type === "anime" ? navigate("/") : navigate("/manga-hub"))
+      .catch((err) =>
+        res
+          .status(400)
+          .send(`Can't add to document to collection with error - ${err}`)
+      );
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      setError("")
-      setLoading(true)
-      
+      setError("");
+      setLoading(true);
+      if (location.state.previousPage === "AnimeHub") {
+        const animePostsRef = collection(firestore, "AnimePosts");
+        addDocument(animePostsRef, "anime");
+      } else if (location.state.previousPage === "MangaHub") {
+        const mangaPostsRef = collection(firestore, "MangaPosts");
+        addDocument(mangaPostsRef, "manga");
+      }
     } catch {
-      setError("Failed to create post")
+      setError("Failed to create post");
     }
-
     setLoading(false);
   };
 
