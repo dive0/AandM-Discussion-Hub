@@ -65,4 +65,20 @@
   .hubPage h1 {
     @apply text-center text-6xl font-semibold text-white my-4;
   }
+
+  .createPost {
+    @apply bg-slate-600 py-4 px-2 my-3 rounded-lg;
+  }
+
+  .createPost input {
+    @apply w-full h-10 rounded-full px-3 bg-slate-800 hover:bg-slate-900 text-center text-xl;
+  }
+
+  .postContainer {
+    @apply bg-slate-600 py-2 px-3 text-lg rounded-lg text-white font-semibold;
+  }
+
+  .postContainer select {
+    @apply bg-slate-800 rounded-lg text-center;
+  }
 }

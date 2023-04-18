@@ -11,6 +11,7 @@ import AnimeHub from "./Pages/AnimeHub";
 import MangaHub from "./Pages/MangaHub";
 import UpdateProfile from "./Pages/UpdateProfile";
 import CreatePost from "./Pages/CreatePost";
+import PostDetail from "./Pages/PostDetail";
 
 function App() {
 
@@ -23,7 +24,8 @@ function App() {
             <Route element={<Navbar />}>
               <Route exact path="/" element={<AnimeHub />} />
               <Route path="/manga-hub" element={<MangaHub />} />
-              <Route path="/create-post" element={<CreatePost />}></Route>
+              <Route path="/create-post" element={<CreatePost />} />
+              <Route path="/posts/:id" element={<PostDetail />} />
             </Route>
             <Route path="update-profile" element={<UpdateProfile />} />
           </Route>

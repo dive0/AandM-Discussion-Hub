@@ -73,18 +73,17 @@ const AnimeHub = () => {
       <h1>Anime Hub</h1>
       <div className="grid grid-cols-3">
         <div className="col-start-2">
-          <div className="bg-slate-600 py-4 px-2 my-3 rounded-lg">
+          <div className="createPost">
             <Link to="/create-post" state={{ previousPage: "AnimeHub" }}>
-              <input
-                type="text"
-                className="w-full h-10 rounded-full px-3 bg-slate-800 hover:bg-slate-900 text-center text-xl"
-                placeholder="Create Post"
-              />
+              <input type="text" placeholder="Create Post" />
             </Link>
           </div>
-          <div className="bg-slate-600 py-2 px-3 text-lg rounded-lg text-white font-semibold">
+          <div className="postContainer">
             <span>Order by: </span>
-            <select name="orderBy" id="orderBy" onChange={(e) => setOrder(e.target.value)} className="bg-slate-800 rounded-lg text-center" >
+            <select
+              name="orderBy"
+              id="orderBy"
+              onChange={(e) => setOrder(e.target.value)}>
               <option value="createdAt">Newest</option>
               <option value="upVote">Most Popular</option>
             </select>
@@ -93,7 +92,6 @@ const AnimeHub = () => {
             <Post key={post.id} post={post} />
           ))}
         </div>
-        <div></div>
       </div>
       {/* {animeTrendingData?.forEach((anime) => console.log(anime))} */}
     </div>

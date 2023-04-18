@@ -1,10 +1,11 @@
 import { BsFillHandThumbsUpFill } from "react-icons/bs";
 import { firestore } from "../firebase_setup/firebase";
 import { doc, updateDoc } from "firebase/firestore";
-import { useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Post = (props) => {
   const { post } = props;
+  const navigate = useNavigate();
 
   const handleUpVote = () => {
     let docRef;
@@ -19,7 +20,9 @@ const Post = (props) => {
   };
 
   return (
-    <div className="bg-slate-600 py-4 px-3 my-2 rounded-lg text-white space-y-2">
+    <div
+      className="bg-slate-600 py-4 px-3 my-2 rounded-lg text-white space-y-2 hover:cursor-pointer"
+      onClick={() => navigate(`/posts/${post.id}`)}>
       <p>Posted on {post.dateCreatedOn}</p>
       <h2 className="text-3xl font-semibold">{post.title}</h2>
       <p className="text-lg">{post.postText}</p>
@@ -28,11 +31,14 @@ const Post = (props) => {
       ) : (
         ""
       )}
-      <p className="flex space-x-1">
+      <p className="flex items-center space-x-1 text-lg">
         <BsFillHandThumbsUpFill
-          size={20}
-          onClick={handleUpVote}
-          className="hover:cursor-pointer hover:scale-110 transition"
+          size={30}
+          onClick={(e) => {
+            handleUpVote();
+            e.stopPropagation();
+          }}
+          className="hover:cursor-pointer hover:scale-110 hover:bg-slate-700 transition p-1 rounded-full"
         />
         <span>{post.upVote}</span>
       </p>
