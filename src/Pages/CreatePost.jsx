@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { firestore } from "../firebase_setup/firebase";
 import { useAuth } from "../Contexts/AuthContext";
 
@@ -20,6 +20,10 @@ const CreatePost = (props) => {
       title: titleRef.current.value,
       postText: postTextContentRef.current.value,
       imageURL: imageURLRef.current.value,
+      createdAt: serverTimestamp(),
+      dateCreatedOn: new Date().toLocaleString(),
+      upVote: 0,
+      comment: [],
     })
       .then(type === "anime" ? navigate("/") : navigate("/manga-hub"))
       .catch((err) =>

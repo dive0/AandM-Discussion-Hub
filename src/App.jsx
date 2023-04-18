@@ -16,7 +16,7 @@ function App() {
 
 
   return (
-    <div className="bg-slate-900 w-screen h-screen">
+    <div className="bg-slate-900 max-w-screen min-h-screen">
       <AuthProvider>
         <Routes>
           <Route element={<PrivateRoute />}>
