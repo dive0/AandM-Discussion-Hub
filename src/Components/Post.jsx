@@ -22,7 +22,17 @@ const Post = (props) => {
   return (
     <div
       className="bg-slate-600 py-4 px-3 my-2 rounded-lg text-white space-y-2 hover:cursor-pointer"
-      onClick={() => navigate(`/posts/${post.id}`)}>
+      onClick={() => {
+        if (window.location.pathname === "/") {
+          navigate(`/posts/${post.id}`, {
+            state: { previousPage: "AnimeHub" },
+          });
+        } else if (window.location.pathname === "/manga-hub") {
+          navigate(`/posts/${post.id}`, {
+            state: { previousPage: "MangaHub" },
+          });
+        }
+      }}>
       <p>Posted on {post.dateCreatedOn}</p>
       <h2 className="text-3xl font-semibold">{post.title}</h2>
       <p className="text-lg">{post.postText}</p>
