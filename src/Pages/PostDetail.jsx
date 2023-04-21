@@ -1,9 +1,21 @@
-import { useState, useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { firestore } from "../firebase_setup/firebase";
-import { doc, updateDoc, onSnapshot } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  onSnapshot,
+  deleteDoc,
+  arrayUnion,
+  increment,
+} from "firebase/firestore";
 import { useAuth } from "../Contexts/AuthContext";
-import { BsFillHandThumbsUpFill } from "react-icons/bs";
+import {
+  BsFillHandThumbsUpFill,
+  BsFillTrashFill,
+  BsPencilFill,
+} from "react-icons/bs";
+import Comment from "../Components/Comment";
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -12,6 +24,8 @@ const PostDetail = () => {
   const [error, setError] = useState("");
   const [currentPost, setCurrentPost] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const commentRef = useRef();
 
   let docRef;
   let currentHub;
@@ -34,7 +48,22 @@ const PostDetail = () => {
 
   const handleUpVote = () => {
     updateDoc(docRef, {
-      upVote: currentPost.upVote + 1,
+      upVote: increment(1),
+    });
+  };
+
+  const handleDelete = () => {
+    deleteDoc(docRef).then(() => {
+      switch (currentHub) {
+        case "AnimeHub":
+          navigate("/");
+          break;
+        case "MangaHub":
+          navigate("/manga-hub");
+          break;
+        default:
+          break;
+      }
     });
   };
 
@@ -44,6 +73,14 @@ const PostDetail = () => {
     try {
       setError("");
       setLoading(true);
+      updateDoc(docRef, {
+        comment: arrayUnion({
+          user: currentUser.uid,
+          dateCreatedOn: new Date().toLocaleString(),
+          commentText: commentRef.current.value,
+        }),
+      });
+      e.target.reset();
     } catch {
       setError("Failed to create comment");
     }
@@ -67,39 +104,57 @@ const PostDetail = () => {
           ) : (
             ""
           )}
-          <p className="flex items-center space-x-1 text-lg">
-            <BsFillHandThumbsUpFill
-              size={30}
-              onClick={(e) => {
-                handleUpVote();
-                e.stopPropagation();
-              }}
-              className="hover:cursor-pointer hover:scale-110 hover:bg-slate-700 transition p-1 rounded-full"
-            />
-            <span>{currentPost.upVote}</span>
-          </p>
-          {/* {currentPost.length !== 0 ? currentPost.postOwner === currentUser.uid ? <button>Delete</button> <button>Edit</button> : null : null} */}
-          
-          <h2>
-            Comments (
-            {currentPost.length !== 0 ? currentPost.comment.length : 0})
-          </h2>
-          <div >
+          <div className="flex space-x-3 items-center">
+            <p className="flex items-center space-x-1 text-lg">
+              <BsFillHandThumbsUpFill
+                size={30}
+                onClick={(e) => {
+                  handleUpVote();
+                  e.stopPropagation();
+                }}
+                className="hover:cursor-pointer hover:scale-110 hover:bg-slate-700 transition p-1 rounded-full"
+              />
+              <span>{currentPost.upVote}</span>
+            </p>
+            {currentPost?.postOwner === currentUser.uid && (
+              <div className="flex space-x-3">
+                <BsFillTrashFill
+                  size={30}
+                  className="hover:cursor-pointer hover:scale-110 hover:bg-slate-700 transition p-1 rounded-full"
+                  onClick={handleDelete}
+                />
+                <BsPencilFill
+                  size={30}
+                  className="hover:cursor-pointer hover:scale-110 hover:bg-slate-700 transition p-1 rounded-full"
+                />
+              </div>
+            )}
+          </div>
+
+          <h2>Comments ({currentPost && currentPost.comment?.length})</h2>
+          <div>
             <form onSubmit={handleSubmit}>
               <textarea
                 name="commentText"
                 id="commentText"
                 rows="5"
+                ref={commentRef}
                 placeholder="What are your thoughts?"
                 className="w-full rounded-xl py-1 px-2  bg-slate-800 hover:bg-slate-900 focus:bg-slate-900"
                 required
               />
-              <button disabled={loading} type="submit" className="ml-auto bg-blue-700 block rounded-full py-1 px-2 hover:bg-blue-900 transition">
+              <button
+                disabled={loading}
+                type="submit"
+                className="ml-auto bg-blue-700 block rounded-full py-1 px-2 hover:bg-blue-900 transition mb-4">
                 Comment
               </button>
             </form>
+
+            {currentPost.comment?.map((comment, i) => (
+              <Comment key={i} comment={comment} />
+            ))}
           </div>
-            
         </div>
       </div>
     </div>

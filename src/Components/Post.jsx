@@ -1,6 +1,6 @@
 import { BsFillHandThumbsUpFill } from "react-icons/bs";
 import { firestore } from "../firebase_setup/firebase";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, increment, updateDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 
 const Post = (props) => {
@@ -15,7 +15,7 @@ const Post = (props) => {
       docRef = doc(firestore, "MangaPosts", post.id);
     }
     updateDoc(docRef, {
-      upVote: post.upVote + 1,
+      upVote: increment(1),
     });
   };
 
