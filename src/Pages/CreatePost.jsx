@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { firestore } from "../firebase_setup/firebase";
 import { useAuth } from "../Contexts/AuthContext";
+import PostForm from "../Components/PostForm";
 
 const CreatePost = (props) => {
   const titleRef = useRef();
@@ -59,36 +60,17 @@ const CreatePost = (props) => {
           Create A Post
         </h1>
         {error && alert(error)}
-        <form onSubmit={handleSubmit} className="bg-slate-600 py-3 px-5 space-y-1 text-white">
-          <input
-            type="text"
-            id="title"
-            name="title"
-            ref={titleRef}
-            placeholder="Title"
-            required
-            className="inputField"
-          />
-          <textarea
-            name="postTextContent"
-            id="postTextContent"
-            rows="5"
-            placeholder="Text (optional)"
-            ref={postTextContentRef}
-            className="inputField"
-          />
-          <input
-            type="url"
-            id="imageURL"
-            name="imageURL"
-            ref={imageURLRef}
-            placeholder="Image URL (optional)"
-            className="inputField"
-          />
-          <button disabled={loading} type="submit" className="inputFieldButton">
-            Create Post
-          </button>
-        </form>
+        <PostForm
+          handleSubmit={handleSubmit}
+          titleRef={titleRef}
+          postTextContentRef={postTextContentRef}
+          imageURLRef={imageURLRef}
+          loading={loading}
+          defaultTitle=""
+          defaultText=""
+          defaultImageURL=""
+          formType="Create"
+        />
       </div>
     </div>
   );

@@ -12,6 +12,7 @@ import MangaHub from "./Pages/MangaHub";
 import UpdateProfile from "./Pages/UpdateProfile";
 import CreatePost from "./Pages/CreatePost";
 import PostDetail from "./Pages/PostDetail";
+import EditPost from "./Pages/EditPost";
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
               <Route path="/manga-hub" element={<MangaHub />} />
               <Route path="/create-post" element={<CreatePost />} />
               <Route path="/posts/:id" element={<PostDetail />} />
+              <Route path="posts/:id/edit" element={<EditPost />} />
             </Route>
             <Route path="update-profile" element={<UpdateProfile />} />
           </Route>

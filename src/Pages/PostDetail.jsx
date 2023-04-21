@@ -126,6 +126,9 @@ const PostDetail = () => {
                 <BsPencilFill
                   size={30}
                   className="icon"
+                  onClick={() => navigate(`/posts/${id}/edit`, {
+                    state: { previousPage: currentHub },
+                  })}
                 />
               </div>
             )}
