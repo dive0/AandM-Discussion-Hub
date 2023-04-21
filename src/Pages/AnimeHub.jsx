@@ -3,6 +3,7 @@ import { firestore } from "../firebase_setup/firebase";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 import Post from "../Components/Post";
+import Trending from "../Components/Trending";
 
 const AnimeHub = () => {
   const [animeTrendingData, setAnimeTrendingData] = useState([]);
@@ -71,8 +72,8 @@ const AnimeHub = () => {
   return (
     <div className="hubPage">
       <h1>Anime Hub</h1>
-      <div className="grid grid-cols-3">
-        <div className="col-start-2">
+      <div className="grid grid-cols-12">
+        <div className="col-start-4 col-end-8">
           <div className="createPost">
             <Link to="/create-post" state={{ previousPage: "AnimeHub" }}>
               <input type="text" placeholder="Create Post" />
@@ -92,8 +93,13 @@ const AnimeHub = () => {
             <Post key={post.id} post={post} hubType="Anime" />
           ))}
         </div>
+        <div className="trending">
+          <h2>Currently Trending</h2>
+          {animeTrendingData?.map((anime) => (
+            <Trending key={anime.id} data={anime} />
+          ))}
+        </div>
       </div>
-      {/* {animeTrendingData?.forEach((anime) => console.log(anime))} */}
     </div>
   );
 };

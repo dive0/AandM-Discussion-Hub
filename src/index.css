@@ -93,4 +93,11 @@
   .icon {
     @apply hover:cursor-pointer hover:scale-110 hover:bg-slate-700 transition p-1 rounded-full;
   }
+  .trending {
+    @apply mx-4 col-start-8 col-end-10
+  }
+
+  .trending h2 {
+    @apply text-white text-3xl text-center
+  }
 }
