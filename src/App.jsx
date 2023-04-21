@@ -13,6 +13,7 @@ import UpdateProfile from "./Pages/UpdateProfile";
 import CreatePost from "./Pages/CreatePost";
 import PostDetail from "./Pages/PostDetail";
 import EditPost from "./Pages/EditPost";
+import SearchResult from "./Pages/SearchResult";
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
               <Route path="/create-post" element={<CreatePost />} />
               <Route path="/posts/:id" element={<PostDetail />} />
               <Route path="posts/:id/edit" element={<EditPost />} />
+              <Route path="/search/:title" element={<SearchResult />} />
             </Route>
             <Route path="update-profile" element={<UpdateProfile />} />
           </Route>

@@ -4,14 +4,14 @@ import { doc, increment, updateDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 
 const Post = (props) => {
-  const { post } = props;
+  const { post, hubType } = props;
   const navigate = useNavigate();
 
   const handleUpVote = () => {
     let docRef;
-    if (window.location.pathname === "/") {
+    if (hubType === "Anime") {
       docRef = doc(firestore, "AnimePosts", post.id);
-    } else if (window.location.pathname === "/manga-hub") {
+    } else if (hubType === "Manga") {
       docRef = doc(firestore, "MangaPosts", post.id);
     }
     updateDoc(docRef, {
@@ -23,11 +23,11 @@ const Post = (props) => {
     <div
       className="bg-slate-600 py-4 px-3 my-2 rounded-lg text-white space-y-2 hover:cursor-pointer"
       onClick={() => {
-        if (window.location.pathname === "/") {
+        if (hubType === "Anime") {
           navigate(`/posts/${post.id}`, {
             state: { previousPage: "AnimeHub" },
           });
-        } else if (window.location.pathname === "/manga-hub") {
+        } else if (hubType === "Manga") {
           navigate(`/posts/${post.id}`, {
             state: { previousPage: "MangaHub" },
           });

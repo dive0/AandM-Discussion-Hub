@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../Contexts/AuthContext";
 
@@ -6,6 +6,7 @@ const Navbar = () => {
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
+  const search = useRef();
 
   const handleLogout = async () => {
     setError("");
@@ -15,6 +16,12 @@ const Navbar = () => {
     } catch {
       setError("Failed to log out");
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate(`/search/${search.current.value}`);
+    e.target.reset();
   };
 
   return (
@@ -29,9 +36,15 @@ const Navbar = () => {
         </div>
 
         {/* Email: {currentUser.email} */}
-        <div>
-          <input type="text" id="search" placeholder="Search Posts" className="w-full rounded-full px-3 bg-slate-700 text-white hover:bg-slate-900 focus:bg-slate-900" />
-        </div>
+        <form onSubmit={handleSubmit}>
+          <input
+            ref={search}
+            type="text"
+            id="search"
+            placeholder="Search Posts"
+            className="w-full rounded-full px-3 bg-slate-700 text-white hover:bg-slate-900 focus:bg-slate-900"
+          />
+        </form>
 
         <div className="flex justify-start space-x-5 px-5">
           <li>

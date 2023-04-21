@@ -89,7 +89,7 @@ const MangaHub = () => {
             </select>
           </div>
           {mangaDiscussionPost?.map((post) => (
-            <Post key={post.id} post={post} />
+            <Post key={post.id} post={post} hubType="Manga" />
           ))}
         </div>
       </div>
