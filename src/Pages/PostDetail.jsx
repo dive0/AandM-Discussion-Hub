@@ -112,7 +112,7 @@ const PostDetail = () => {
                   handleUpVote();
                   e.stopPropagation();
                 }}
-                className="hover:cursor-pointer hover:scale-110 hover:bg-slate-700 transition p-1 rounded-full"
+                className="icon"
               />
               <span>{currentPost.upVote}</span>
             </p>
@@ -120,12 +120,12 @@ const PostDetail = () => {
               <div className="flex space-x-3">
                 <BsFillTrashFill
                   size={30}
-                  className="hover:cursor-pointer hover:scale-110 hover:bg-slate-700 transition p-1 rounded-full"
+                  className="icon"
                   onClick={handleDelete}
                 />
                 <BsPencilFill
                   size={30}
-                  className="hover:cursor-pointer hover:scale-110 hover:bg-slate-700 transition p-1 rounded-full"
+                  className="icon"
                 />
               </div>
             )}
@@ -140,13 +140,13 @@ const PostDetail = () => {
                 rows="5"
                 ref={commentRef}
                 placeholder="What are your thoughts?"
-                className="w-full rounded-xl py-1 px-2  bg-slate-800 hover:bg-slate-900 focus:bg-slate-900"
+                className="inputField"
                 required
               />
               <button
                 disabled={loading}
                 type="submit"
-                className="ml-auto bg-blue-700 block rounded-full py-1 px-2 hover:bg-blue-900 transition mb-4">
+                className="inputFieldButton">
                 Comment
               </button>
             </form>

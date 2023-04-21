@@ -81,4 +81,16 @@
   .postContainer select {
     @apply bg-slate-800 rounded-lg text-center;
   }
+
+  .inputField {
+    @apply w-full rounded-xl py-1 px-2 bg-slate-800 hover:bg-slate-900 focus:bg-slate-900;
+  }
+
+  .inputFieldButton {
+    @apply ml-auto bg-blue-700 block rounded-full py-1 px-2 hover:bg-blue-900 transition mb-4;
+  }
+
+  .icon {
+    @apply hover:cursor-pointer hover:scale-110 hover:bg-slate-700 transition p-1 rounded-full;
+  }
 }

@@ -53,40 +53,44 @@ const CreatePost = (props) => {
   };
 
   return (
-    <>
-      <h1 className="text-center text-6xl font-semibold text-white my-4">
-        Create A Post
-      </h1>
-      {error && alert(error)}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          ref={titleRef}
-          placeholder="Title"
-          required
-        />
-        <textarea
-          name="postTextContent"
-          id="postTextContent"
-          rows="5"
-          className="w-full"
-          placeholder="Text (optional)"
-          ref={postTextContentRef}
-        />
-        <input
-          type="url"
-          id="imageURL"
-          name="imageURL"
-          ref={imageURLRef}
-          placeholder="Image URL (optional)"
-        />
-        <button disabled={loading} type="submit">
-          Create Post
-        </button>
-      </form>
-    </>
+    <div className="grid grid-cols-3">
+      <div className="col-start-2">
+        <h1 className="text-center text-6xl font-semibold text-white my-4">
+          Create A Post
+        </h1>
+        {error && alert(error)}
+        <form onSubmit={handleSubmit} className="bg-slate-600 py-3 px-5 space-y-1 text-white">
+          <input
+            type="text"
+            id="title"
+            name="title"
+            ref={titleRef}
+            placeholder="Title"
+            required
+            className="inputField"
+          />
+          <textarea
+            name="postTextContent"
+            id="postTextContent"
+            rows="5"
+            placeholder="Text (optional)"
+            ref={postTextContentRef}
+            className="inputField"
+          />
+          <input
+            type="url"
+            id="imageURL"
+            name="imageURL"
+            ref={imageURLRef}
+            placeholder="Image URL (optional)"
+            className="inputField"
+          />
+          <button disabled={loading} type="submit" className="inputFieldButton">
+            Create Post
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 
