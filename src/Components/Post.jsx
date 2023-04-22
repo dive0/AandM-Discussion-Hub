@@ -33,7 +33,7 @@ const Post = (props) => {
           });
         }
       }}>
-      <p>Posted on {post.dateCreatedOn}</p>
+      <p>Posted by {post.postOwnerName} on {post.dateCreatedOn}</p>
       <h2 className="text-3xl font-semibold">{post.title}</h2>
       <p className="text-lg">{post.postText}</p>
       {post.imageURL ? (

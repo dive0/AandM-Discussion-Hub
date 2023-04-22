@@ -24,6 +24,7 @@ const PostDetail = () => {
   const [error, setError] = useState("");
   const [currentPost, setCurrentPost] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [userName, setUserName] = useState("");
   const navigate = useNavigate();
   const commentRef = useRef();
 
@@ -45,6 +46,13 @@ const PostDetail = () => {
       });
     });
   }, []);
+
+  const userDocRef = doc(firestore, "userInfo", currentUser.uid);
+
+  useEffect(
+    () => onSnapshot(userDocRef, (snapshot) => setUserName(snapshot.data())),
+    []
+  );
 
   const handleUpVote = () => {
     updateDoc(docRef, {
@@ -75,9 +83,11 @@ const PostDetail = () => {
       setLoading(true);
       updateDoc(docRef, {
         comment: arrayUnion({
-          user: currentUser.uid,
+          userId: currentUser.uid,
+          userName: userName.userName,
           dateCreatedOn: new Date().toLocaleString(),
           commentText: commentRef.current.value,
+
         }),
       });
       e.target.reset();
@@ -92,7 +102,7 @@ const PostDetail = () => {
       <div className="col-start-2">
         {error && alert(error)}
         <div className="bg-slate-600 py-4 px-3 my-2 rounded-lg text-white space-y-2">
-          <p>Posted on {currentPost.dateCreatedOn}</p>
+          <p>Posted by {currentPost.postOwnerName} on {currentPost.dateCreatedOn}</p>
           <h2 className="text-3xl font-semibold">{currentPost.title}</h2>
           <p className="text-lg">{currentPost.postText}</p>
           {currentPost.imageURL ? (
@@ -126,9 +136,11 @@ const PostDetail = () => {
                 <BsPencilFill
                   size={30}
                   className="icon"
-                  onClick={() => navigate(`/posts/${id}/edit`, {
-                    state: { previousPage: currentHub },
-                  })}
+                  onClick={() =>
+                    navigate(`/posts/${id}/edit`, {
+                      state: { previousPage: currentHub },
+                    })
+                  }
                 />
               </div>
             )}

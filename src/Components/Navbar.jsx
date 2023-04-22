@@ -35,7 +35,6 @@ const Navbar = () => {
           <Link to="/manga-hub">MangaHub</Link>
         </div>
 
-        {/* Email: {currentUser.email} */}
         <form onSubmit={handleSubmit}>
           <input
             ref={search}

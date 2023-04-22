@@ -6,6 +6,7 @@ const Signup = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
+  const userNameRef = useRef();
   const { signup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,7 +22,11 @@ const Signup = () => {
     try {
       setError("");
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
+      await signup(
+        emailRef.current.value,
+        passwordRef.current.value,
+        userNameRef.current.value
+      );
       navigate("/");
     } catch {
       setError("Failed to create an account");
@@ -37,6 +42,14 @@ const Signup = () => {
         <form onSubmit={handleSubmit} className="formsContainerContent">
           <label htmlFor="email">Email</label>
           <input type="email" id="email" name="email" ref={emailRef} required />
+          <label htmlFor="userName">UserName</label>
+          <input
+            type="text"
+            id="userName"
+            name="userName"
+            ref={userNameRef}
+            required
+          />
           <label htmlFor="password">Password</label>
           <input
             type="password"

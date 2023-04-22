@@ -1,6 +1,12 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+  onSnapshot,
+  doc,
+} from "firebase/firestore";
 import { firestore } from "../firebase_setup/firebase";
 import { useAuth } from "../Contexts/AuthContext";
 import PostForm from "../Components/PostForm";
@@ -11,13 +17,22 @@ const CreatePost = (props) => {
   const imageURLRef = useRef();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [userName, setUserName] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const { currentUser } = useAuth();
 
+  const docRef = doc(firestore, "userInfo", currentUser.uid);
+
+  useEffect(
+    () => onSnapshot(docRef, (snapshot) => setUserName(snapshot.data())),
+    []
+  );
+
   const addDocument = async (collectionRef, type) => {
     await addDoc(collectionRef, {
-      postOwner: currentUser.uid,
+      postOwnerId: currentUser.uid,
+      postOwnerName: userName.userName,
       title: titleRef.current.value,
       postText: postTextContentRef.current.value,
       imageURL: imageURLRef.current.value,
