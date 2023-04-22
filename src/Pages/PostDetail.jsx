@@ -8,6 +8,9 @@ import {
   deleteDoc,
   arrayUnion,
   increment,
+  addDoc,
+  collection,
+  getDoc,
 } from "firebase/firestore";
 import { useAuth } from "../Contexts/AuthContext";
 import {
@@ -25,6 +28,7 @@ const PostDetail = () => {
   const [currentPost, setCurrentPost] = useState([]);
   const [loading, setLoading] = useState(false);
   const [userName, setUserName] = useState("");
+  // const [commentDoc, setCommentDoc] = useState([]);
   const navigate = useNavigate();
   const commentRef = useRef();
 
@@ -75,21 +79,47 @@ const PostDetail = () => {
     });
   };
 
+  // const getComment = () => {
+  //   currentPost.comment?.forEach((comment) => {
+  //     const commentRef = doc(firestore, "Comment", comment.commentId);
+  //     getDoc(commentRef).then((doc) => setCommentDoc([...commentDoc, doc.data()));
+  //     // console.log(commentDoc)
+  //   });
+  // };
+
+  // useffect to get comment
+  const getComment = (commentId) => {
+    const commentRef = doc(firestore, "Comment", commentId);
+    getDoc(commentRef).then((doc) => {
+      <Comment key={commentId} comment={"fdsd"} />;
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     try {
       setError("");
       setLoading(true);
-      updateDoc(docRef, {
-        comment: arrayUnion({
-          userId: currentUser.uid,
-          userName: userName.userName,
-          dateCreatedOn: new Date().toLocaleString(),
-          commentText: commentRef.current.value,
+      // updateDoc(docRef, {
+      //   comment: arrayUnion({
+      //     userId: currentUser.uid,
+      //     userName: userName.userName,
+      //     dateCreatedOn: new Date().toLocaleString(),
+      //     commentText: commentRef.current.value,
 
-        }),
-      });
+      //   }),
+      // });
+      addDoc(collection(firestore, "Comment"), {
+        replierId: currentUser.uid,
+        replierName: userName.userName,
+        dateCreatedOn: new Date().toLocaleString(),
+        commentText: commentRef.current.value,
+      }).then((result) =>
+        getDoc(result).then((doc) =>
+          updateDoc(docRef, { comment: arrayUnion({ commentId: doc.id }) })
+        )
+      );
       e.target.reset();
     } catch {
       setError("Failed to create comment");
@@ -102,7 +132,9 @@ const PostDetail = () => {
       <div className="col-start-2">
         {error && alert(error)}
         <div className="bg-slate-600 py-4 px-3 my-2 rounded-lg text-white space-y-2">
-          <p>Posted by {currentPost.postOwnerName} on {currentPost.dateCreatedOn}</p>
+          <p>
+            Posted by {currentPost.postOwnerName} on {currentPost.dateCreatedOn}
+          </p>
           <h2 className="text-3xl font-semibold">{currentPost.title}</h2>
           <p className="text-lg">{currentPost.postText}</p>
           {currentPost.imageURL ? (
@@ -165,9 +197,15 @@ const PostDetail = () => {
                 Comment
               </button>
             </form>
+            {/* {getComment()} */}
+            {currentPost.comment?.map((commentId, i) => (
+              // getComment(comment.commentId)
+              <Comment key={i} commentId={commentId} />
 
-            {currentPost.comment?.map((comment, i) => (
-              <Comment key={i} comment={comment} />
+              // const commentRef = doc(firestore, "Comment", comment.commentId);
+              // getDoc(commentRef).then((doc) => {
+              //   <Comment comment={"fdsd"} />;
+              // });
             ))}
           </div>
         </div>

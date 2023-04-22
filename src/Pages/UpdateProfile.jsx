@@ -22,6 +22,7 @@ const UpdateProfile = () => {
   const [userName, setUserName] = useState("");
   const [animeDiscussionPost, setAnimeDiscussionPost] = useState([]);
   const [mangaDiscussionPost, setMangaDiscussionPost] = useState([]);
+  const [comment, setComment] = useState([]);
   const navigate = useNavigate();
 
   const userDocRef = doc(firestore, "userInfo", currentUser.uid);
@@ -34,6 +35,11 @@ const UpdateProfile = () => {
   const mangaPostQuery = query(
     mangaPostsRef,
     where("postOwnerId", "==", currentUser.uid)
+  );
+  const commentRef = collection(firestore, "Comment");
+  const commentQuery = query(
+    commentRef,
+    where("replierId", "==", currentUser.uid)
   );
 
   useEffect(
@@ -57,7 +63,20 @@ const UpdateProfile = () => {
   useEffect(
     () =>
       onSnapshot(mangaPostQuery, (snapshot) =>
-        setMangaDiscussionPost(
+      setMangaDiscussionPost(
+          snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }))
+        )
+      ),
+    []
+  );
+
+  useEffect(
+    () =>
+      onSnapshot(commentQuery, (snapshot) =>
+        setComment(
           snapshot.docs.map((doc) => ({
             ...doc.data(),
             id: doc.id,
@@ -87,17 +106,23 @@ const UpdateProfile = () => {
         userName: userNameRef.current.value,
       });
       animeDiscussionPost?.forEach((post) => {
-        const postRef = doc(firestore, "AnimePosts", post.id)
+        const postRef = doc(firestore, "AnimePosts", post.id);
         updateDoc(postRef, {
           postOwnerName: userNameRef.current.value,
-        })
-      })
+        });
+      });
       mangaDiscussionPost?.forEach((post) => {
-        const postRef = doc(firestore, "MangaPosts", post.id)
+        const postRef = doc(firestore, "MangaPosts", post.id);
         updateDoc(postRef, {
           postOwnerName: userNameRef.current.value,
-        })
-      })
+        });
+      });
+      comment?.forEach((c) => {
+        const commentDocRef = doc(firestore, "Comment", c.id);
+        updateDoc(commentDocRef, {
+          replierName: userNameRef.current.value,
+        });
+      });
     }
 
     Promise.all(promises)
