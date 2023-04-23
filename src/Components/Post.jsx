@@ -1,7 +1,7 @@
 import { BsFillHandThumbsUpFill } from "react-icons/bs";
 import { firestore } from "../firebase_setup/firebase";
 import { doc, increment, updateDoc } from "firebase/firestore";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Post = (props) => {
   const { post, hubType } = props;

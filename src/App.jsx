@@ -16,8 +16,6 @@ import EditPost from "./Pages/EditPost";
 import SearchResult from "./Pages/SearchResult";
 
 function App() {
-
-
   return (
     <div className="bg-slate-900 max-w-screen min-h-screen">
       <AuthProvider>

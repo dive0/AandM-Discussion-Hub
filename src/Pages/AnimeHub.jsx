@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { firestore } from "../firebase_setup/firebase";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Post from "../Components/Post";
 import Trending from "../Components/Trending";
 
@@ -9,7 +9,6 @@ const AnimeHub = () => {
   const [animeTrendingData, setAnimeTrendingData] = useState([]);
   const [animeDiscussionPost, setAnimeDiscussionPost] = useState([]);
   const [order, setOrder] = useState("createdAt");
-  const navigate = useNavigate();
 
   let queries = `
   query ($page: Int, $perPage: Int, $search: String) {

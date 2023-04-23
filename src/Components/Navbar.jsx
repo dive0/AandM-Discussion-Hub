@@ -4,7 +4,7 @@ import { useAuth } from "../Contexts/AuthContext";
 
 const Navbar = () => {
   const [error, setError] = useState("");
-  const { currentUser, logout } = useAuth();
+  const { logout } = useAuth();
   const navigate = useNavigate();
   const search = useRef();
 

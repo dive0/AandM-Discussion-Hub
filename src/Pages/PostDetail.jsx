@@ -28,7 +28,6 @@ const PostDetail = () => {
   const [currentPost, setCurrentPost] = useState([]);
   const [loading, setLoading] = useState(false);
   const [userName, setUserName] = useState("");
-  // const [commentDoc, setCommentDoc] = useState([]);
   const navigate = useNavigate();
   const commentRef = useRef();
 
@@ -79,37 +78,12 @@ const PostDetail = () => {
     });
   };
 
-  // const getComment = () => {
-  //   currentPost.comment?.forEach((comment) => {
-  //     const commentRef = doc(firestore, "Comment", comment.commentId);
-  //     getDoc(commentRef).then((doc) => setCommentDoc([...commentDoc, doc.data()));
-  //     // console.log(commentDoc)
-  //   });
-  // };
-
-  // useffect to get comment
-  const getComment = (commentId) => {
-    const commentRef = doc(firestore, "Comment", commentId);
-    getDoc(commentRef).then((doc) => {
-      <Comment key={commentId} comment={"fdsd"} />;
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
     try {
       setError("");
       setLoading(true);
-      // updateDoc(docRef, {
-      //   comment: arrayUnion({
-      //     userId: currentUser.uid,
-      //     userName: userName.userName,
-      //     dateCreatedOn: new Date().toLocaleString(),
-      //     commentText: commentRef.current.value,
-
-      //   }),
-      // });
       addDoc(collection(firestore, "Comment"), {
         replierId: currentUser.uid,
         replierName: userName.userName,
@@ -197,15 +171,8 @@ const PostDetail = () => {
                 Comment
               </button>
             </form>
-            {/* {getComment()} */}
             {currentPost.comment?.map((commentId, i) => (
-              // getComment(comment.commentId)
               <Comment key={i} commentId={commentId} />
-
-              // const commentRef = doc(firestore, "Comment", comment.commentId);
-              // getDoc(commentRef).then((doc) => {
-              //   <Comment comment={"fdsd"} />;
-              // });
             ))}
           </div>
         </div>
