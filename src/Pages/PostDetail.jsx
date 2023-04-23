@@ -132,7 +132,7 @@ const PostDetail = () => {
               />
               <span>{currentPost.upVote}</span>
             </p>
-            {currentPost?.postOwner === currentUser.uid && (
+            {currentPost?.postOwnerId === currentUser.uid && (
               <div className="flex space-x-3">
                 <BsFillTrashFill
                   size={30}
