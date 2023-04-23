@@ -47,12 +47,16 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<!-- <img src='' title='Video Walkthrough' width='' alt='Video Walkthrough' /> -->
+https://user-images.githubusercontent.com/22397488/233820396-0201df49-2328-46d0-98ed-76f2771d4874.mp4
 
 <!-- Replace this with whatever GIF tool you used! -->
 Video created with ShareX
 
 ## Notes
+
+
+
+
 
 Describe any challenges encountered while building the app.
 - This is my first time using Firebase so I ran into a few difficulties. I had to research how to incorporate the service into my app and use the various functions provided by the service. I ran into problems like not being able to update user information and getting the data that I needed from the Firestore database. It was confusing at first, but after trying out different methods of overcoming the challenges and searching for possible solutions, I was able to understand how the authentication and database function in Firebase.
