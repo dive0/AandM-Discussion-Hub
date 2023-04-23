@@ -2,25 +2,27 @@
 
 Submitted by: **Shi Wei Zheng**
 
-This web app: **insert description**
+This web app: **A discussion forum for anime and manga lovers.**
 
-Time spent: **X** hours spent in total
+Time spent: **20** hours spent in total
+
+Link to app: https://aandm-discussion.netlify.app/
 
 ## Required Features
 
 The following **required** functionality is completed:
 
-- [ ] **A create form that allows the user to create posts**
-- [ ] **Posts have a title and optionally additional textual content and/or an image added as an external image URL**
-- [ ] **A home feed displaying previously created posts**
-- [ ] **By default, the time created, title, and number of upvotes for each post is shown on the feed**
-- [ ] **Clicking on a post shall direct the user to a new page for the selected post**
-- [ ] **Users can sort posts by either their created time or upvotes count**
-- [ ] **Users can search for posts by title**
-- [ ] **A separate post page for each created post, where any additional information is shown is linked whenever a user clicks a post**
-- [ ] **Users can leave comments underneath a post on the post's separate page**
-- [ ] **Each post should have an upvote button on the post's page. Each click increases its upvotes count by one and users can upvote any number of times**
-- [ ] **A previously created post can be edited or deleted from its post page**
+- [x] **A create form that allows the user to create posts**
+- [x] **Posts have a title and optionally additional textual content and/or an image added as an external image URL**
+- [x] **A home feed displaying previously created posts**
+- [x] **By default, the time created, title, and number of upvotes for each post is shown on the feed**
+- [x] **Clicking on a post shall direct the user to a new page for the selected post**
+- [x] **Users can sort posts by either their created time or upvotes count**
+- [x] **Users can search for posts by title**
+- [x] **A separate post page for each created post, where any additional information is shown is linked whenever a user clicks a post**
+- [x] **Users can leave comments underneath a post on the post's separate page**
+- [x] **Each post should have an upvote button on the post's page. Each click increases its upvotes count by one and users can upvote any number of times**
+- [x] **A previously created post can be edited or deleted from its post page**
 
 The following **optional** features are implemented:
 
@@ -35,20 +37,26 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you added to improve the site's functionality!
+* [x] List anything else that you added to improve the site's functionality!
+  * [x] Use [Anilist API](https://anilist.gitbook.io/anilist-apiv2-docs/) to get currently trending anime and manga
+  * [x] Use Firebase 9 for
+    - User authentication
+    - Database
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<!-- <img src='' title='Video Walkthrough' width='' alt='Video Walkthrough' /> -->
 
 <!-- Replace this with whatever GIF tool you used! -->
-GIF created with ShareX
+Video created with ShareX
 
 ## Notes
 
 Describe any challenges encountered while building the app.
+- This is my first time using Firebase so I ran into a few difficulties. I had to research how to incorporate the service into my app and use the various functions provided by the service. I ran into problems like not being able to update user information and getting the data that I needed from the Firestore database. It was confusing at first, but after trying out different methods of overcoming the challenges and searching for possible solutions, I was able to understand how the authentication and database function in Firebase.
+- It was confusing to fetch data from the Anilist API since it uses GraphQL instead of REST API. Not understanding how GraphQL works, I had trouble fetching the data I needed. Even though I followed the documentation, I had to do other research on how to fetch the data. Many trials and error were done to solve a lot of the challenges I encountered.
 
 ## License
 
