@@ -1,4 +1,4 @@
-# Web Development Project 8 - *AandM Discussion Hub*
+*AandM Discussion Hub*
 
 Submitted by: **Shi Wei Zheng**
 
